@@ -17,9 +17,16 @@ public class MainScreen extends AppCompatActivity {
 
     public void gotoMapScreen(View view){
         Intent intent = new Intent(this, MapScreen.class);
-        EditText editText = (EditText) findViewById(R.id.editText);
-        String message = editText.getText().toString();
-        intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);
+    }
+
+    public void gotoContactScreen(View view){
+        Intent intent = new Intent(this, MapScreen.class);
+        startActivity(intent);
+    }
+
+    public void gotoAlumniGymScreen(View view){
+        Intent intent = new Intent(this, AlumniGymScreen.class);
         startActivity(intent);
     }
 }

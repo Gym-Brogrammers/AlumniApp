@@ -2,11 +2,4 @@
     <string name="app_name">UBAthletics</string>
     <string name="hello_test">Hello World</string>
     <string name="button_next">Next Screen</string>
-    <string name="title_activity_guide">Guide</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
 </resources>

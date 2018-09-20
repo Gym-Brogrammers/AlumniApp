@@ -6,4 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".MapScreen">
 
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="129dp"
+        android:layout_height="114dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="116dp"
+        android:onClick="gotoMainScreen"
+        android:text="Home"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>
