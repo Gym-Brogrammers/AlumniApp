@@ -15,8 +15,8 @@ public class MainScreen extends AppCompatActivity {
         setContentView(R.layout.activity_main_screen);
     }
 
-    public void gotoNextScreen(View view){
-        Intent intent = new Intent(this, NewScreen.class);
+    public void gotoMapScreen(View view){
+        Intent intent = new Intent(this, MapScreen.class);
         EditText editText = (EditText) findViewById(R.id.editText);
         String message = editText.getText().toString();
         intent.putExtra(EXTRA_MESSAGE, message);
