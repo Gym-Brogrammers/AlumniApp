@@ -1,5 +1,7 @@
 package com.example.ubathletics;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -7,10 +9,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 public class AlumniGymFragment extends Fragment {            //Sets up super basic fragment
     View inflatedView = null;
     ImageButton favoriteButton = null;
+    Activity activity;
+
+    @Override
+    public void onAttach(Context context){
+        super.onAttach(context);
+        this.activity = (Activity) context;
+    }
+
     @Override                                               //TODO: Make do something
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.inflatedView = inflater.inflate(R.layout.alumni_fragment_layout, container, false);
@@ -35,6 +46,9 @@ public class AlumniGymFragment extends Fragment {            //Sets up super bas
         return inflatedView;
     }
 
+    @Override
     public void onViewCreated(View view, Bundle savedInstanceState){
+        super.onViewCreated(view,savedInstanceState);
+        activity.setTitle(R.string.gym_header);
     }
 }
