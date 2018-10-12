@@ -10,8 +10,10 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.method.LinkMovementMethod;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,13 +23,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);    //Ties main screen to layout
-
+        setContentView(R.layout.activity_main);//Ties main screen to layo
         Toolbar toolbar = findViewById(R.id.toolbar);       //Adds custom toolbar to top of the app
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
+
 
         trans = getSupportFragmentManager().beginTransaction(); //Sets first fragment, will be favorite page eventually
         trans.add(R.id.content_frame,new AlumniGymFragment());
@@ -72,6 +74,9 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                             case R.id.nav_map:
                                 currFrag=new MapFragment();     //Set fragment as Map
+                                break;
+                            case R.id.nav_contact:
+                                currFrag=new ContactUsFragment();
                                 break;
                         }
                         trans = getSupportFragmentManager().beginTransaction();     //Replaces current
