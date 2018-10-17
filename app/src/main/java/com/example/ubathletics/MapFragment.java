@@ -12,4 +12,5 @@ public class MapFragment extends Fragment{          //Sets up super basic fragme
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.map_fragment_layout, container, false);
     }
+
 }
