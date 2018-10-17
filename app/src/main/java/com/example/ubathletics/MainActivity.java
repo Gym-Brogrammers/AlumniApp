@@ -1,6 +1,8 @@
 package com.example.ubathletics;
 
-import android.support.annotation.NonNull;
+import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -11,9 +13,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.method.LinkMovementMethod;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.support.annotation.NonNull;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,16 +27,27 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);//Ties main screen to layo
+        setContentView(R.layout.activity_main);    //Ties main screen to layout
+
         Toolbar toolbar = findViewById(R.id.toolbar);       //Adds custom toolbar to top of the app
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
+        trans = getSupportFragmentManager().beginTransaction();
+        SharedPreferences favoriteScreenPref = this.getSharedPreferences(getString(R.string.favorite_screen_id),MODE_PRIVATE);
+        String favoriteScreen = favoriteScreenPref.getString(getString(R.string.favorite_screen_id),getString(R.string.favorite_screen_default));
 
-        trans = getSupportFragmentManager().beginTransaction(); //Sets first fragment, will be favorite page eventually
-        trans.add(R.id.content_frame,new AlumniGymFragment());
+        if(favoriteScreen.equals("AlumniGymFragment")){
+            trans.add(R.id.content_frame,new AlumniGymFragment());
+        }
+        else if(favoriteScreen.equals("MapFragment")){
+            trans.add(R.id.content_frame,new MapFragment());
+        }
+        else{
+            trans.add(R.id.content_frame,new MapFragment());
+        }
         trans.commit();
 
 
@@ -86,6 +101,13 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     }
                 });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.toolbar_view, menu);
+        return true;
     }
 
     @Override
