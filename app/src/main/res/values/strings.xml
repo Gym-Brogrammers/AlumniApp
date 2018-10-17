@@ -9,4 +9,5 @@
     <string name="favorite_off">Off</string>
     <string name="favorite_screen_id"></string>
     <string name="favorite_screen_default">AlumniGymFragment</string>
+    <string name="contactus_header">Contact Us</string>
 </resources>

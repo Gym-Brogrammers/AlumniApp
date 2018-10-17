@@ -45,6 +45,9 @@ public class MainActivity extends AppCompatActivity {
         else if(favoriteScreen.equals("MapFragment")){
             trans.add(R.id.content_frame,new MapFragment());
         }
+        else if(favoriteScreen.equals("ContactUsFragment")){
+            trans.add(R.id.content_frame,new ContactUsFragment());
+        }
         else{
             trans.add(R.id.content_frame,new MapFragment());
         }
