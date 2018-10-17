@@ -2,6 +2,7 @@ package com.example.ubathletics;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -26,29 +27,42 @@ public class AlumniGymFragment extends Fragment {            //Sets up super bas
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.inflatedView = inflater.inflate(R.layout.alumni_fragment_layout, container, false);
 
+        activity.setTitle(R.string.gym_header);
+
+
         favoriteButton = inflatedView.findViewById(R.id.favoriteButton);
+        SharedPreferences pref = inflatedView.getContext().getSharedPreferences(getString(R.string.favorite_screen_id),Context.MODE_PRIVATE);
+        String test = pref.getString(getString(R.string.favorite_screen_id),null);
+        if(test.equals("AlumniGymFragment")){
+            favoriteButton.setImageResource(R.drawable.ic_favorite_on);
+        }
 
         favoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(favoriteButton.getTag().equals("Off")){
+                SharedPreferences pref = v.getContext().getSharedPreferences(getString(R.string.favorite_screen_id),Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                String favorite = pref.getString(getString(R.string.favorite_screen_id),null);
+                if(!favorite.equals("AlumniGymFragment")){
                     favoriteButton.setImageResource(R.drawable.ic_favorite_on);
-                    favoriteButton.setTag("On");
+                    favorite = "AlumniGymFragment";
                 }
-                else if(favoriteButton.getTag().equals("On")){
+                else{
                     favoriteButton.setImageResource((R.drawable.ic_favorite_off));
-                    favoriteButton.setTag("Off");
+                    favorite = "";
                 }
-
+                editor.putString(getString(R.string.favorite_screen_id),favorite);
+                editor.apply();
             }
         });
-
         return inflatedView;
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState){
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState){
         super.onViewCreated(view,savedInstanceState);
-        activity.setTitle(R.string.gym_header);
+
+
+
     }
 }

@@ -7,4 +7,6 @@
     <string name="map_header">Map</string>
     <string name="favorite_on">On</string>
     <string name="favorite_off">Off</string>
+    <string name="favorite_screen_id"></string>
+    <string name="favorite_screen_default">AlumniGymFragment</string>
 </resources>

@@ -1,5 +1,8 @@
 package com.example.ubathletics;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -30,8 +33,19 @@ public class MainActivity extends AppCompatActivity {
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
-        trans = getSupportFragmentManager().beginTransaction(); //Sets first fragment, will be favorite page eventually
-        trans.add(R.id.content_frame,new AlumniGymFragment());
+        trans = getSupportFragmentManager().beginTransaction();
+        SharedPreferences favoriteScreenPref = this.getSharedPreferences(getString(R.string.favorite_screen_id),MODE_PRIVATE);
+        String favoriteScreen = favoriteScreenPref.getString(getString(R.string.favorite_screen_id),getString(R.string.favorite_screen_default));
+
+        if(favoriteScreen.equals("AlumniGymFragment")){
+            trans.add(R.id.content_frame,new AlumniGymFragment());
+        }
+        else if(favoriteScreen.equals("MapFragment")){
+            trans.add(R.id.content_frame,new MapFragment());
+        }
+        else{
+            trans.add(R.id.content_frame,new MapFragment());
+        }
         trans.commit();
 
 
