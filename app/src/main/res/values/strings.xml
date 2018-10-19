@@ -2,4 +2,11 @@
     <string name="app_name">UBAthletics</string>
     <string name="hello_test">Hello World</string>
     <string name="button_next">Next Screen</string>
+    <string name="linktohours">Gym Hours
+    <a href="https://www.buffalo.edu/recreation/facilities/hours.html"></a>
+    </string>
+    <string name="linktoathwebsite">UB Athletics website
+    <a href="http://www.ubbulls.com/landing/index"></a>
+    </string>
+
 </resources>
