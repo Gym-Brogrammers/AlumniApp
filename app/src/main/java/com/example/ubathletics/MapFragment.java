@@ -61,4 +61,5 @@ public class MapFragment extends Fragment{          //Sets up super basic fragme
         super.onViewCreated(view,savedInstanceState);
         activity.setTitle(R.string.map_header);
     }
+
 }

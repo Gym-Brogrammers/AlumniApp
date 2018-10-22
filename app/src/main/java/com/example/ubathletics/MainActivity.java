@@ -16,6 +16,7 @@ import android.text.method.LinkMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import java.time.format.DateTimeFormatter;
 import android.widget.TextView;
 import android.support.annotation.NonNull;
 
