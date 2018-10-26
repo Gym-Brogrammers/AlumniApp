@@ -10,11 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
-public class MapFragment extends Fragment{          //Sets up super basic fragment
+public class ContactUsFragment extends Fragment {            //Sets up super basic fragment
     View inflatedView = null;
     ImageButton favoriteButton = null;
-    private Activity activity;
+    Activity activity;
 
     @Override
     public void onAttach(Context context){
@@ -22,16 +23,17 @@ public class MapFragment extends Fragment{          //Sets up super basic fragme
         this.activity = (Activity) context;
     }
 
-    @Override
+    @Override                                               //TODO: Make do something
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        this.inflatedView = inflater.inflate(R.layout.alumni_fragment_layout, container, false);
+        this.inflatedView = inflater.inflate(R.layout.contactus_layout, container, false);
 
-        activity.setTitle(R.string.map_header);
+        activity.setTitle(R.string.contactus_header);
+
 
         favoriteButton = inflatedView.findViewById(R.id.favoriteButton);
         SharedPreferences pref = inflatedView.getContext().getSharedPreferences(getString(R.string.favorite_screen_id),Context.MODE_PRIVATE);
         String test = pref.getString(getString(R.string.favorite_screen_id),null);
-        if(test.equals("MapFragment")){
+        if(test.equals("ContactUsFragment")){
             favoriteButton.setImageResource(R.drawable.ic_favorite_on);
         }
 
@@ -41,9 +43,9 @@ public class MapFragment extends Fragment{          //Sets up super basic fragme
                 SharedPreferences pref = v.getContext().getSharedPreferences(getString(R.string.favorite_screen_id),Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
                 String favorite = pref.getString(getString(R.string.favorite_screen_id),null);
-                if(!favorite.equals("MapFragment")){
+                if(!favorite.equals("ContactUsFragment")){
                     favoriteButton.setImageResource(R.drawable.ic_favorite_on);
-                    favorite = "MapFragment";
+                    favorite = "ContactUsFragment";
                 }
                 else{
                     favoriteButton.setImageResource((R.drawable.ic_favorite_off));
@@ -57,9 +59,8 @@ public class MapFragment extends Fragment{          //Sets up super basic fragme
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState){
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState){
         super.onViewCreated(view,savedInstanceState);
-        activity.setTitle(R.string.map_header);
-    }
 
+    }
 }

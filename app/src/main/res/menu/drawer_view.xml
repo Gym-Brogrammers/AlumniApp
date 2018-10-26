@@ -2,17 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_gym"
+            android:id="@+id/nav_alumni"
             android:icon="@drawable/ic_gym"
             android:title="AlumniGym" />
+        <item
+            android:id="@+id/nav_clark"
+            android:icon="@drawable/ic_gym"
+            android:title="ClarkGym" />
+
         <item
             android:id="@+id/nav_map"
             android:icon="@drawable/ic_map"
             android:title="Map" />
-        <item
-            android:id="@+id/nav_website"
-            android:icon="@drawable/ic_world"
-            android:title="UB Athletics Website" />
         <item
             android:id="@+id/nav_contact"
             android:icon="@drawable/ic_phone"

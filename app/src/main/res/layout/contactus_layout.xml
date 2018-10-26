@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="388dp"
+        android:layout_height="465dp"
+        android:layout_marginTop="68dp"
+        android:autoLink="all"
+        android:text="Near, Far, wheereveerr you are
+we believe...that...our app does..go onnn onn.
+Matthew Sixt: ithaca@buffalo.edu
+Christopher Long: thesabresmightwin@buffalo.edu\n
+Pranav Kadam: theonebrownguy@buffalo.edu\n
+Elliot: elliot@buffalo.edu\n
+Max: hopeyouscorebro@buffalo.edu\n
+
+Related Links:
+Gym Hours: https://www.buffalo.edu/recreation/facilities/hours.html\n
+UB Athletics Website: http://www.ubbulls.com/landing/index\n"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageButton
+        android:id="@+id/favoriteButton"
+        android:layout_width="36dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/ic_favorite_off"
+        android:tag="@string/favorite_off"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/star_off" />
+</android.support.constraint.ConstraintLayout>

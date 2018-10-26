@@ -1,6 +1,6 @@
 package com.example.ubathletics;
 
-import android.support.annotation.NonNull;
+import android.content.SharedPreferences;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -10,8 +10,10 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.support.annotation.NonNull;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,8 +31,25 @@ public class MainActivity extends AppCompatActivity {
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
-        trans = getSupportFragmentManager().beginTransaction(); //Sets first fragment, will be favorite page eventually
-        trans.add(R.id.content_frame,new AlumniGymFragment());
+        trans = getSupportFragmentManager().beginTransaction();
+        SharedPreferences favoriteScreenPref = this.getSharedPreferences(getString(R.string.favorite_screen_id),MODE_PRIVATE);
+        String favoriteScreen = favoriteScreenPref.getString(getString(R.string.favorite_screen_id),getString(R.string.favorite_screen_default));
+
+        if(favoriteScreen.equals("AlumniGymFragment")){
+            trans.add(R.id.content_frame,new AlumniGymFragment());
+        }
+        else if(favoriteScreen.equals("MapFragment")){
+            trans.add(R.id.content_frame,new MapFragment());
+        }
+        else if(favoriteScreen.equals("ContactUsFragment")){
+            trans.add(R.id.content_frame,new ContactUsFragment());
+        }
+        else if(favoriteScreen.equals("ClarkGymFragment")){
+            trans.add(R.id.content_frame,new ClarkGymFragment());
+        }
+        else{
+            trans.add(R.id.content_frame,new MapFragment());
+        }
         trans.commit();
 
 
@@ -67,11 +86,17 @@ public class MainActivity extends AppCompatActivity {
                         menu.closeDrawers();                    //Closes drawer
                         Fragment currFrag = new Fragment();     //Creates new fragment
                         switch (menuItem.getItemId()){          //Looks to see what is clicked
-                            case R.id.nav_gym:
+                            case R.id.nav_alumni:
                                 currFrag = new AlumniGymFragment(); //Set fragment as Alumni
+                                break;
+                            case R.id.nav_clark:
+                                currFrag = new ClarkGymFragment(); //Set fragment as Alumni
                                 break;
                             case R.id.nav_map:
                                 currFrag=new MapFragment();     //Set fragment as Map
+                                break;
+                            case R.id.nav_contact:
+                                currFrag=new ContactUsFragment();
                                 break;
                         }
                         trans = getSupportFragmentManager().beginTransaction();     //Replaces current
@@ -81,6 +106,13 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     }
                 });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.toolbar_view, menu);
+        return true;
     }
 
     @Override

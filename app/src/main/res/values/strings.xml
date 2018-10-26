@@ -2,4 +2,13 @@
     <string name="app_name">UBAthletics</string>
     <string name="hello_test">Hello World</string>
     <string name="button_next">Next Screen</string>
+    <string name="favorite_facility">Favorite Facility</string>
+    <string name="alumni_header">Alumni Gym</string>
+    <string name="clark_header">Clark Gym</string>
+    <string name="map_header">Map</string>
+    <string name="favorite_on">On</string>
+    <string name="favorite_off">Off</string>
+    <string name="favorite_screen_id"></string>
+    <string name="favorite_screen_default">AlumniGymFragment</string>
+    <string name="contactus_header">Contact Us</string>
 </resources>
