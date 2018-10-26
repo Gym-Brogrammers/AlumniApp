@@ -1,6 +1,5 @@
 package com.example.ubathletics;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -30,9 +29,9 @@ public class GraphFragment extends Fragment {
         graph.getViewport().setXAxisBoundsManual(true);
         graph.getViewport().setMinX(0);
         graph.getViewport().setMaxX(24);
-
+        graph.getGridLabelRenderer().setNumHorizontalLabels(6);
         series = new LineGraphSeries<>();
-        for(int i=0;i<24;i++) {
+        for(int i=0;i<25;i++) {
             series.appendData(new DataPoint(i, dataFromParent[i]), true, 24);
         }
         graph.addSeries(series);

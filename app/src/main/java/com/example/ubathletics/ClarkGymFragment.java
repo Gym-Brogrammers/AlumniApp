@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import java.util.Random;
 
 public class ClarkGymFragment extends Fragment{
     View inflatedView = null;
@@ -63,8 +64,12 @@ public class ClarkGymFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
         FragmentTransaction trans;
         GraphFragment clarkGraph = new GraphFragment();
-        int[] data = new int[24];
-        data[6]=4;
+
+        int[] data = new int[25];
+        Random rand = new Random();
+        for(int i=8;i<20;i++){
+            data[i]= rand.nextInt(80);
+        }
 
         Bundle args = new Bundle();
         args.putIntArray("data",data);

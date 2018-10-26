@@ -63,7 +63,7 @@ public class AlumniGymFragment extends Fragment {            //Sets up super bas
         super.onViewCreated(view, savedInstanceState);
         FragmentTransaction trans;
         GraphFragment alumniGraph = new GraphFragment();
-        int[] data = new int[24];
+        int[] data = new int[25];
         data[4]=6;
 
         Bundle args = new Bundle();
