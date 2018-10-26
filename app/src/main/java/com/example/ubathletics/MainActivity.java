@@ -12,10 +12,12 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.text.method.LinkMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.support.annotation.NonNull;
 import java.time.format.DateTimeFormatter;
 import android.widget.TextView;
 import android.support.annotation.NonNull;
@@ -48,6 +50,9 @@ public class MainActivity extends AppCompatActivity {
         }
         else if(favoriteScreen.equals("ContactUsFragment")){
             trans.add(R.id.content_frame,new ContactUsFragment());
+        }
+        else if(favoriteScreen.equals("ClarkGymFragment")){
+            trans.add(R.id.content_frame,new ClarkGymFragment());
         }
         else{
             trans.add(R.id.content_frame,new MapFragment());
@@ -88,8 +93,11 @@ public class MainActivity extends AppCompatActivity {
                         menu.closeDrawers();                    //Closes drawer
                         Fragment currFrag = new Fragment();     //Creates new fragment
                         switch (menuItem.getItemId()){          //Looks to see what is clicked
-                            case R.id.nav_gym:
+                            case R.id.nav_alumni:
                                 currFrag = new AlumniGymFragment(); //Set fragment as Alumni
+                                break;
+                            case R.id.nav_clark:
+                                currFrag = new ClarkGymFragment(); //Set fragment as Alumni
                                 break;
                             case R.id.nav_map:
                                 currFrag=new MapFragment();     //Set fragment as Map
