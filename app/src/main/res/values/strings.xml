@@ -11,4 +11,6 @@
     <string name="favorite_screen_id"></string>
     <string name="favorite_screen_default">AlumniGymFragment</string>
     <string name="contactus_header">Contact Us</string>
+    <string name="favorite_button_description">Favorite Button</string>
+    <string name="date_label">Date Selected:</string>
 </resources>

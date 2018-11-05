@@ -34,6 +34,9 @@ public class ClarkGymFragment extends Fragment{
         favoriteButton = inflatedView.findViewById(R.id.favoriteButton);
         SharedPreferences pref = inflatedView.getContext().getSharedPreferences(getString(R.string.favorite_screen_id),Context.MODE_PRIVATE);
         String test = pref.getString(getString(R.string.favorite_screen_id),null);
+        if(test==null){
+            test = " ";
+        }
         if(test.equals("ClarkGymFragment")){
             favoriteButton.setImageResource(R.drawable.ic_favorite_on);
         }
@@ -44,6 +47,9 @@ public class ClarkGymFragment extends Fragment{
                 SharedPreferences pref = v.getContext().getSharedPreferences(getString(R.string.favorite_screen_id),Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
                 String favorite = pref.getString(getString(R.string.favorite_screen_id),null);
+                if(favorite==null){
+                    favorite=" ";
+                }
                 if(!favorite.equals("ClarkGymFragment")){
                     favoriteButton.setImageResource(R.drawable.ic_favorite_on);
                     favorite = "ClarkGymFragment";

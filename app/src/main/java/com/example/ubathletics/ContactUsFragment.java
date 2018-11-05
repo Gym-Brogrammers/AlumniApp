@@ -32,6 +32,9 @@ public class ContactUsFragment extends Fragment {            //Sets up super bas
         favoriteButton = inflatedView.findViewById(R.id.favoriteButton);
         SharedPreferences pref = inflatedView.getContext().getSharedPreferences(getString(R.string.favorite_screen_id),Context.MODE_PRIVATE);
         String test = pref.getString(getString(R.string.favorite_screen_id),null);
+        if(test==null){
+            test = " ";
+        }
         if(test.equals("ContactUsFragment")){
             favoriteButton.setImageResource(R.drawable.ic_favorite_on);
         }
@@ -42,6 +45,9 @@ public class ContactUsFragment extends Fragment {            //Sets up super bas
                 SharedPreferences pref = v.getContext().getSharedPreferences(getString(R.string.favorite_screen_id),Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
                 String favorite = pref.getString(getString(R.string.favorite_screen_id),null);
+                if(favorite==null){
+                    favorite=" ";
+                }
                 if(!favorite.equals("ContactUsFragment")){
                     favoriteButton.setImageResource(R.drawable.ic_favorite_on);
                     favorite = "ContactUsFragment";

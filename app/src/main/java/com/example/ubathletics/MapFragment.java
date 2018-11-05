@@ -31,6 +31,9 @@ public class MapFragment extends Fragment{          //Sets up super basic fragme
         favoriteButton = inflatedView.findViewById(R.id.favoriteButton);
         SharedPreferences pref = inflatedView.getContext().getSharedPreferences(getString(R.string.favorite_screen_id),Context.MODE_PRIVATE);
         String test = pref.getString(getString(R.string.favorite_screen_id),null);
+        if(test==null){
+            test = " ";
+        }
         if(test.equals("MapFragment")){
             favoriteButton.setImageResource(R.drawable.ic_favorite_on);
         }
@@ -41,6 +44,9 @@ public class MapFragment extends Fragment{          //Sets up super basic fragme
                 SharedPreferences pref = v.getContext().getSharedPreferences(getString(R.string.favorite_screen_id),Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
                 String favorite = pref.getString(getString(R.string.favorite_screen_id),null);
+                if(favorite==null){
+                    favorite=" ";
+                }
                 if(!favorite.equals("MapFragment")){
                     favoriteButton.setImageResource(R.drawable.ic_favorite_on);
                     favorite = "MapFragment";

@@ -5,8 +5,8 @@
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <android.support.constraint.ConstraintLayout
-        android:layout_height="match_parent"
-        android:layout_width="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <FrameLayout
             android:id="@+id/alumni_graph_frame"
@@ -27,11 +27,46 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="40dp"
             android:background="@drawable/ic_favorite_off"
-            android:contentDescription="Favorite_button"
+            android:contentDescription="@string/favorite_button_description"
             android:tag="@string/favorite_off"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@android:drawable/star_off" />
+
+        <FrameLayout
+            android:id="@+id/alumni_calendar_frame"
+            android:layout_width="368dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="240dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/date_label"
+            android:layout_width="103dp"
+            android:layout_height="26dp"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="152dp"
+            android:text="@string/date_label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/date_field"
+            android:layout_width="131dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="180dp"
+            android:layout_marginTop="132dp"
+            android:ems="10"
+            android:inputType="date"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
 
