@@ -24,7 +24,7 @@ public class MapFragment extends Fragment{          //Sets up super basic fragme
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        this.inflatedView = inflater.inflate(R.layout.alumni_fragment_layout, container, false);
+        this.inflatedView = inflater.inflate(R.layout.map_fragment_layout, container, false);
 
         activity.setTitle(R.string.map_header);
 

@@ -82,15 +82,21 @@ public class AlumniGymFragment extends Fragment {            //Sets up super bas
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(((s.length()==2)||(s.length()==5))&&(beforeChange<=afterChange)){
-                    s.append("/");
-                }
-                else if(((s.length()==3)||s.length()==6)&&beforeChange>afterChange){
+
+                if(((s.length()==3)||s.length()==6)&&beforeChange>afterChange){
                     s.delete(s.length()-1,s.length());
                 }
                 else if(s.length()>=11){
                     s.delete(s.length()-1,s.length());
                 }
+
+                if((s.length()>=3)&&(s.charAt(2)!='/')){
+                    s.insert(2,"/");
+                }
+                else if((s.length()>=6)&&(s.charAt(5)!='/')){
+                    s.insert(5,"/");
+                }
+
                 if(s.length()>=3) {
                     if((s.charAt(0) >= '2') || ((s.charAt(0) == '1') && (s.charAt(1) > '2'))) {
                         s.delete(2,3);
@@ -99,7 +105,7 @@ public class AlumniGymFragment extends Fragment {            //Sets up super bas
                         toast.show();
                     }
                 }
-                else if(s.length()>=6) {
+                if(s.length()>=6) {
                     if ((s.charAt(3) >= '4') || ((s.charAt(3) == '3') && (s.charAt(4) >= '3'))) {
                         s.delete(5,6);
                         Toast toast = Toast.makeText(inflatedView.getContext(),"Please enter a proper date",Toast.LENGTH_LONG);
@@ -107,7 +113,7 @@ public class AlumniGymFragment extends Fragment {            //Sets up super bas
                         toast.show();
                     }
                 }
-                else if(s.length()>=7){
+                if(s.length()==10){
                     if((s.charAt(6)!='2')&&(s.charAt(7)!='0')&&(s.charAt(8)!='1')&&((s.charAt(9)<'7')||(s.charAt(9)>'9'))){
                         Toast toast = Toast.makeText(inflatedView.getContext(),"Please enter date between last year and next year",Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL,0,-340);
