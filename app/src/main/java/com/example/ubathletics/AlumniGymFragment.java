@@ -118,7 +118,11 @@ public class AlumniGymFragment extends Fragment {            //Sets up super bas
                     else{_isProper=true;}
                 }
                 else if(s.length()>=6) {
-                    if ((s.charAt(3) >= '4') || ((s.charAt(3) == '3') && (s.charAt(4) >= '3'))) {
+                    if (((Integer.parseInt(s.toString().substring(0,2))==2)&&(Integer.parseInt(s.toString().substring(3,5))>28))||
+                            ((Integer.parseInt(s.toString().substring(3,5))>30)&&((Integer.parseInt(s.toString().substring(0,2))==4)||
+                            (Integer.parseInt(s.toString().substring(0,2))==6)||(Integer.parseInt(s.toString().substring(0,2))==9)||(Integer.parseInt(s.toString().substring(0,2))==11)))
+                            ||((Integer.parseInt(s.toString().substring(3,5))>31)))
+                    {
                         s.delete(5,6);
                         Toast toast = Toast.makeText(inflatedView.getContext(),"Please enter a proper date",Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL,0,-340);
@@ -126,7 +130,7 @@ public class AlumniGymFragment extends Fragment {            //Sets up super bas
                     }
                 }
                 else if(s.length()>=3) {
-                    if((s.charAt(0) >= '2') || ((s.charAt(0) == '1') && (s.charAt(1) > '2'))) {
+                    if(Integer.parseInt(s.toString().substring(0,2))>12) {
                         s.delete(2,3);
                         Toast toast = Toast.makeText(inflatedView.getContext(),"Please enter a proper date",Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL,0,-340);
