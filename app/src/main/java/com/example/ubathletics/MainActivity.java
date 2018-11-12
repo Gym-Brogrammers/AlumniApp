@@ -20,21 +20,29 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout menu;                      //Navigation menu main access
     private FragmentTransaction trans;              //Used to switch fragments, or pages to the user
 
+    /*First method called when activity is opened
+    *
+    * Input: Bundle with any arguments sent to activity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Sets main layout
         setContentView(R.layout.activity_main);    //Ties main screen to layout
 
+        //Sets up toolbar for the top of the app
         Toolbar toolbar = findViewById(R.id.toolbar);       //Adds custom toolbar to top of the app
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
+        //Sets up fragment manager and gets argument for favorite page
         trans = getSupportFragmentManager().beginTransaction();
         SharedPreferences favoriteScreenPref = this.getSharedPreferences(getString(R.string.favorite_screen_id),MODE_PRIVATE);
         String favoriteScreen = favoriteScreenPref.getString(getString(R.string.favorite_screen_id),getString(R.string.favorite_screen_default));
 
+        //Adds favorite facility to transaction manager and commits
         if(favoriteScreen.equals("AlumniGymFragment")){
             trans.add(R.id.content_frame,new AlumniGymFragment());
         }
@@ -51,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
             trans.add(R.id.content_frame,new MapFragment());
         }
         trans.commit();
-
 
         menu = findViewById(R.id.drawer_layout);                //Adds listener to menu, needed to
         menu.addDrawerListener(                                 //Let menu open
