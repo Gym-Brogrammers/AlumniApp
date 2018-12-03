@@ -11,11 +11,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
-public class MapFragment extends Fragment{          //Sets up map fragment
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+public class MapFragment extends Fragment implements OnMapReadyCallback {          //Sets up map fragment
     View inflatedView = null;
     ImageButton favoriteButton = null;
     private Activity activity;
-
+    private GoogleMap mMap;
     /*First method called when Fragment is attached to an activiy
      * sets up local variables
      *
@@ -35,10 +42,12 @@ public class MapFragment extends Fragment{          //Sets up map fragment
      */
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        this.inflatedView = inflater.inflate(R.layout.map_fragment_layout, container, false);
+        this.inflatedView = inflater.inflate(R.layout.activity_maps, container, false);
 
         //Changes header to Map
         activity.setTitle(R.string.map_header);
+        SupportMapFragment mapFragment = SupportMapFragment.newInstance();
+        mapFragment.getMapAsync(this);
 
         //Sets up favorite button backend, checks to see what current text of favorite_screen argument is
         //and changes is to an empty string if null, or turns favorite button yellow is alumni is the favorite screen
@@ -51,7 +60,7 @@ public class MapFragment extends Fragment{          //Sets up map fragment
         if(test.equals("MapFragment")){
             favoriteButton.setImageResource(R.drawable.ic_favorite_on);
         }
-
+        /*
         //Listener for favorite button
         favoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +86,7 @@ public class MapFragment extends Fragment{          //Sets up map fragment
                 editor.apply();
             }
         });
+        return inflatedView;*/
         return inflatedView;
     }
 
@@ -88,6 +98,16 @@ public class MapFragment extends Fragment{          //Sets up map fragment
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState){
         super.onViewCreated(view,savedInstanceState);
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+        // Add a marker in Sydney and move the camera
+        LatLng Mianwali = new LatLng(33,72);
+        mMap.addMarker(new MarkerOptions().position(Mianwali).title("Marker in Mianwali"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(Mianwali));
     }
 
 }
