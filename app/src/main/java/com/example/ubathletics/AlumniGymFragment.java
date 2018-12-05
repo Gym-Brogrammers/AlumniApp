@@ -20,6 +20,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Random;
 
 public class AlumniGymFragment extends Fragment {            //Sets up fragment for Alumni Gym
@@ -91,8 +93,16 @@ public class AlumniGymFragment extends Fragment {            //Sets up fragment 
                 editor.apply();
             }
         });
+
+
         //Sets up Text editor field for date entry
         dateView = inflatedView.findViewById(R.id.date_field);
+
+        //Sets up dateView hint with current date
+        Calendar curr = Calendar.getInstance();
+        SimpleDateFormat dateformat = new SimpleDateFormat("MM/dd/yyyy");
+        dateView.setHint(dateformat.format(curr.getTime()));
+
         //Text listener for dateView
         dateView.addTextChangedListener(new TextWatcher() {
             int beforeChange;
@@ -127,18 +137,26 @@ public class AlumniGymFragment extends Fragment {            //Sets up fragment 
 
                 //Disallow periods from being used, notify user
                 if(s.length()>0) {
-                    if (s.charAt(s.length() - 1) == '.') {
+                    if ((s.charAt(s.length() - 1) == '.')||(s.charAt(s.length() - 1) == '-')) {
                         s.delete(s.length() - 1, s.length());
-                        Toast toast = Toast.makeText(inflatedView.getContext(), "Periods are not allowed", Toast.LENGTH_LONG);
+                        Toast toast = Toast.makeText(inflatedView.getContext(), "Periods and dashes are not allowed", Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 0, -340);
                         toast.show();
+                    }
+                    for(int i=0;i<s.length();++i){
+                        if((s.charAt(i)=='/')&&(s.charAt(i+1)=='/')){
+                            s.clear();
+                            Toast toast = Toast.makeText(inflatedView.getContext(), "Please reenter a date", Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 0, -340);
+                            toast.show();
+                        }
                     }
                 }
 
                 //If the user is in the year field, ensure that year entered is between this year and next,
                 //If the date is proper, change _isProper variable to reflect
                 if(s.length()==10){
-                    if((s.charAt(6)!='2')&&(s.charAt(7)!='0')&&(s.charAt(8)!='1')&&((s.charAt(9)<'7')||(s.charAt(9)>'9'))){
+                    if((s.charAt(6)!='2')||(s.charAt(7)!='0')||(s.charAt(8)!='1')||((s.charAt(9)<'7')||(s.charAt(9)>'9'))){
                         Toast toast = Toast.makeText(inflatedView.getContext(),"Please enter date between last year and next year",Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL,0,-340);
                         toast.show();
@@ -176,7 +194,7 @@ public class AlumniGymFragment extends Fragment {            //Sets up fragment 
         dateView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId==EditorInfo.IME_ACTION_DONE) {
+                if (actionId==EditorInfo.IME_ACTION_DONE && _isProper) {
                     //Get data from date given
                     if(dateView.getText().length()==10) {
                         String dateString = String.valueOf(dateView.getText());
@@ -193,6 +211,12 @@ public class AlumniGymFragment extends Fragment {            //Sets up fragment 
                     }
                     //Update the graph and return true
                     updateGraph(data);
+                    return true;
+                }
+                else if(actionId==EditorInfo.IME_ACTION_DONE){
+                    Toast toast = Toast.makeText(inflatedView.getContext(),"Please enter a full, valid date",Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL,0,-340);
+                    toast.show();
                     return true;
                 }
                 return false;
@@ -212,9 +236,12 @@ public class AlumniGymFragment extends Fragment {            //Sets up fragment 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //Create initial data
+        //Set up initial data for today's date, curently just uses random numbers
         int[] data = new int[25];
-        data[4]=6;
+        Random rand = new Random();
+        for(int i=0;i<25;i++){
+            data[i]= rand.nextInt(80);
+        }
 
         //Initialize the graph and associated structures, populates the graph with initial data
         FragmentTransaction trans;
