@@ -13,4 +13,6 @@
     <string name="contactus_header">Contact Us</string>
     <string name="favorite_button_description">Favorite Button</string>
     <string name="date_label">Date Selected:</string>
+    <string name="spinner_week">Predict By Week Day</string>
+    <string name="spinner_month">Predict by Day of the Month</string>
 </resources>

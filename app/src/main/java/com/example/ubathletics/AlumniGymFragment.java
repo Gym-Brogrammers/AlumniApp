@@ -15,17 +15,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Spinner;
+import android.widget.ArrayAdapter;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class AlumniGymFragment extends Fragment {            //Sets up fragment for Alumni Gym
     View inflatedView = null;
     ImageButton favoriteButton = null;
     EditText dateView = null;
+    Spinner predictType = null;
     boolean _isProper=false;
     Activity activity;
     GraphFragment alumniGraph;
@@ -91,6 +97,18 @@ public class AlumniGymFragment extends Fragment {            //Sets up fragment 
                 editor.apply();
             }
         });
+        //Sets up spinner to select prediction method
+        predictType = inflatedView.findViewById(R.id.spinner);
+        //predictType.setOnItemSelectedListener(this);
+
+        List<String> predictionModes = new ArrayList<String>();
+        predictionModes.add("Predict by Day of Week");
+        predictionModes.add("Predict by Day of Month");
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, predictionModes);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        predictType.setAdapter(arrayAdapter);
+
         //Sets up Text editor field for date entry
         dateView = inflatedView.findViewById(R.id.date_field);
         //Text listener for dateView

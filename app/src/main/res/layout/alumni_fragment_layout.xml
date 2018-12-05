@@ -69,6 +69,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:entries="@string/spinner_week"
+            app:layout_constraintBottom_toBottomOf="@+id/date_field"
+            app:layout_constraintStart_toEndOf="@+id/date_field"
+            app:layout_constraintTop_toTopOf="@+id/date_field" />
+
     </android.support.constraint.ConstraintLayout>
 
 </FrameLayout>
