@@ -97,17 +97,15 @@ public class AlumniGymFragment extends Fragment {            //Sets up fragment 
                 editor.apply();
             }
         });
+
         //Sets up spinner to select prediction method
-        predictType = inflatedView.findViewById(R.id.spinner);
-        //predictType.setOnItemSelectedListener(this);
+        predictType = (Spinner) this.inflatedView.findViewById(R.id.spinner);
 
-        List<String> predictionModes = new ArrayList<String>();
-        predictionModes.add("Predict by Day of Week");
-        predictionModes.add("Predict by Day of Month");
+        String [] predictOptions = {"Project by Week Day", "Project by Day of the Month"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, predictOptions);
+        adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        predictType.setAdapter(adapter);
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, predictionModes);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        predictType.setAdapter(arrayAdapter);
 
         //Sets up Text editor field for date entry
         dateView = inflatedView.findViewById(R.id.date_field);
@@ -207,7 +205,12 @@ public class AlumniGymFragment extends Fragment {            //Sets up fragment 
                     int[] data = new int[25];
                     Random rand = new Random();
                     for(int i=0;i<25;i++){
-                        data[i]= rand.nextInt(80);
+                        if (predictType.getSelectedItem().toString().equals("Project by Week Day")) {
+                            data[i] = i;
+                        }
+                        else {
+                            data[i]= rand.nextInt(80);
+                        }
                     }
                     //Update the graph and return true
                     updateGraph(data);
@@ -231,8 +234,7 @@ public class AlumniGymFragment extends Fragment {            //Sets up fragment 
         super.onViewCreated(view, savedInstanceState);
 
         //Create initial data
-        int[] data = new int[25];
-        data[4]=6;
+        int[] data = {0,0,0,0,0,0,28,27,8,12,16,27,28,34,34,46,40,41,29,22,16,15,5,3,0};
 
         //Initialize the graph and associated structures, populates the graph with initial data
         FragmentTransaction trans;
