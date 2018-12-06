@@ -35,6 +35,7 @@ public class AlumniGymFragment extends Fragment {            //Sets up fragment 
     boolean _isProper=false;
     Activity activity;
     GraphFragment alumniGraph;
+    ArrayList<String[]> popCounts = null;
 
     /*First method called when Fragment is attached to an activiy
      * sets up local variables
@@ -60,6 +61,9 @@ public class AlumniGymFragment extends Fragment {            //Sets up fragment 
 
         //Changes header to alumni gym
         activity.setTitle(R.string.alumni_header);
+
+        //Populates popCounts from local csv file
+        popCounts = new DataHelper(getResources().openRawResource(R.raw.pseudo_data)).read();
 
         //Sets up favorite button backend, checks to see what current text of favorite_screen argument is
         //and changes is to an empty string if null, or turns favorite button yellow is alumni is the favorite screen
@@ -105,7 +109,6 @@ public class AlumniGymFragment extends Fragment {            //Sets up fragment 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, predictOptions);
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         predictType.setAdapter(adapter);
-
 
         //Sets up Text editor field for date entry
         dateView = inflatedView.findViewById(R.id.date_field);
@@ -193,25 +196,71 @@ public class AlumniGymFragment extends Fragment {            //Sets up fragment 
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId==EditorInfo.IME_ACTION_DONE) {
+                    int month = 0;
+                    int day = 0;
+                    int year = 0;
+
                     //Get data from date given
                     if(dateView.getText().length()==10) {
                         String dateString = String.valueOf(dateView.getText());
-                        int month = Integer.parseInt(dateString.substring(0, 2));
-                        int day = Integer.parseInt(dateString.substring(3, 5));
-                        int year = Integer.parseInt(dateString.substring(6, 10));
+                        month = Integer.parseInt(dateString.substring(0, 2));
+                        day = Integer.parseInt(dateString.substring(3, 5));
+                        year = Integer.parseInt(dateString.substring(6, 10));
                     }
 
-                    //Populate data array with provided data, currently random numbers just to test
+                    //Populate data array with zeros as a fail-safe
                     int[] data = new int[25];
-                    Random rand = new Random();
-                    for(int i=0;i<25;i++){
-                        if (predictType.getSelectedItem().toString().equals("Project by Week Day")) {
-                            data[i] = i;
-                        }
-                        else {
-                            data[i]= rand.nextInt(80);
+                    for (int i = 0; i < 25; i++) {
+                        data[i] = 0;
+                    }
+
+                    //Match entered date
+                    for (int pcIndex = 0; pcIndex < popCounts.size(); pcIndex++) {
+                        if (month == Integer.parseInt(popCounts.get(pcIndex)[0]) && day == Integer.parseInt(popCounts.get(pcIndex)[1]) && year == Integer.parseInt(popCounts.get(pcIndex)[2])) {
+                            //If there is data, use it
+                            if (popCounts.get(pcIndex).length > 3) {
+                                for (int i = 0; i < 24; i++) {
+                                    data[i] = Integer.parseInt(popCounts.get(pcIndex)[i + 3]);
+                                }
+                            }
+                            //If there is no data and the Spinner says "week", project by weekday
+                            else if (predictType.getSelectedItem().toString().equals("Project by Week Day")) {
+                                int d = 0;
+                                for (int w = pcIndex; w < popCounts.size(); w += 7) {
+                                    if (popCounts.get(w).length > 3) {
+                                        for (int i = 0; i < 24; i++) {
+                                            data[i] += Integer.parseInt(popCounts.get(w)[i + 3]);
+                                        }
+                                        d++;
+                                    }
+                                }
+                                if (d > 0) {
+                                    for (int i = 0; i < 25; i++) {
+                                        data[i] /= d;
+                                    }
+                                }
+                            }
+                            //Otherwise, project by month
+                            else {
+                                int d = 0;
+                                for (int m = pcIndex; m < popCounts.size(); m++) {
+                                    if (day == Integer.parseInt(popCounts.get(m)[1]) && popCounts.get(m).length > 3) {
+                                        for (int i = 0; i < 24; i++) {
+                                            data[i] += Integer.parseInt(popCounts.get(m)[i + 3]);
+                                        }
+                                        d++;
+                                    }
+                                }
+                                if (d > 0) {
+                                    for (int i = 0; i < 25; i++) {
+                                        data[i] /= d;
+                                    }
+                                }
+                            }
+                            break;
                         }
                     }
+
                     //Update the graph and return true
                     updateGraph(data);
                     return true;
@@ -233,7 +282,7 @@ public class AlumniGymFragment extends Fragment {            //Sets up fragment 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //Create initial data
+        //Create initial data -- just random-looking stuff for now
         int[] data = {0,0,0,0,0,0,28,27,8,12,16,27,28,34,34,46,40,41,29,22,16,15,5,3,0};
 
         //Initialize the graph and associated structures, populates the graph with initial data
