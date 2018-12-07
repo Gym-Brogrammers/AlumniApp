@@ -6,16 +6,22 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.ToggleButton;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class MapFragment extends Fragment{          //Sets up map fragment
     View inflatedView = null;
     ImageButton favoriteButton = null;
     private Activity activity;
-
+    private SouthCampusFragment southFrag = new SouthCampusFragment();
+    private NorthCampusFragment northFrag = new NorthCampusFragment();
     /*First method called when Fragment is attached to an activiy
      * sets up local variables
      *
@@ -43,7 +49,7 @@ public class MapFragment extends Fragment{          //Sets up map fragment
         //Sets up favorite button backend, checks to see what current text of favorite_screen argument is
         //and changes is to an empty string if null, or turns favorite button yellow is alumni is the favorite screen
         favoriteButton = inflatedView.findViewById(R.id.favoriteButton);
-        SharedPreferences pref = inflatedView.getContext().getSharedPreferences(getString(R.string.favorite_screen_id),Context.MODE_PRIVATE);
+        SharedPreferences pref = inflatedView.getContext().getSharedPreferences(getString(R.string.favorite_screen_id),MODE_PRIVATE);
         String test = pref.getString(getString(R.string.favorite_screen_id),null);
         if(test==null){
             test = " ";
@@ -57,7 +63,7 @@ public class MapFragment extends Fragment{          //Sets up map fragment
             @Override
             public void onClick(View v) {
                 //Sets up argument describing which button is the favorite, and editor to change the argument if needed
-                SharedPreferences pref = v.getContext().getSharedPreferences(getString(R.string.favorite_screen_id),Context.MODE_PRIVATE);
+                SharedPreferences pref = v.getContext().getSharedPreferences(getString(R.string.favorite_screen_id),MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
                 String favorite = pref.getString(getString(R.string.favorite_screen_id),null);
                 if(favorite==null){
@@ -77,6 +83,21 @@ public class MapFragment extends Fragment{          //Sets up map fragment
                 editor.apply();
             }
         });
+
+
+        ToggleButton toggle =inflatedView.findViewById(R.id.mapToggle);
+        toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                FragmentTransaction trans=getChildFragmentManager().beginTransaction();
+                if (isChecked) {
+                    trans.replace(R.id.map_frame, southFrag);
+                } else {
+                    trans.replace(R.id.map_frame, northFrag);
+                }
+                trans.commit();
+            }
+        });
+
         return inflatedView;
     }
 
@@ -88,6 +109,11 @@ public class MapFragment extends Fragment{          //Sets up map fragment
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState){
         super.onViewCreated(view,savedInstanceState);
+
+        FragmentTransaction tran;
+        tran = getChildFragmentManager().beginTransaction();
+        tran.add(R.id.map_frame, northFrag);
+        tran.commit();
     }
 
 }
