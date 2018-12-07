@@ -57,7 +57,7 @@ public class AlumniGymFragment extends Fragment {            //Sets up fragment 
      * savedInstanceStates; a bundle containing any arguments sent to the fragment
      * Output: View, the current view, modified from the input view
      */
-    @Override                                               //TODO: Make do something
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.inflatedView = inflater.inflate(R.layout.alumni_fragment_layout, container, false);
 
@@ -214,7 +214,6 @@ public class AlumniGymFragment extends Fragment {            //Sets up fragment 
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId==EditorInfo.IME_ACTION_DONE && _isProper) {
-                if (actionId==EditorInfo.IME_ACTION_DONE) {
                     int month = 0;
                     int day = 0;
                     int year = 0;
